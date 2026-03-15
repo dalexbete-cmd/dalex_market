@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DALEX.MARKET</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:white;
+}
+
+.header{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:15px;
+border-bottom:1px solid #eee;
+}
+
+.logo{
+font-size:28px;
+font-weight:900;
+color:#1d9bf0;
+}
+
+.badge{
+background:#1d9bf0;
+color:white;
+border-radius:50%;
+padding:4px 8px;
+margin-left:6px;
+font-size:14px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+padding:20px;
+}
+
+.product{
+border:1px solid #ddd;
+border-radius:10px;
+padding:15px;
+text-align:center;
+cursor:pointer;
+}
+
+.product img{
+width:70px;
+}
+
+.price{
+color:#1d9bf0;
+font-weight:bold;
+}
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+}
+
+.box{
+background:white;
+padding:20px;
+border-radius:10px;
+width:300px;
+text-align:center;
+}
+
+.qty{
+display:flex;
+justify-content:center;
+gap:10px;
+margin:10px;
+}
+
+button{
+padding:10px;
+border:none;
+background:#1d9bf0;
+color:white;
+border-radius:8px;
+cursor:pointer;
+margin-top:8px;
+}
+
+.section{
+padding:20px;
+border-top:1px solid #eee;
+}
+
+.star{
+font-size:25px;
+color:gray;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+let qty=1
+
+function openProduk(nama,h,img){
+
+qty=1
+
+document.getElementById("pnama").innerText=nama
+document.getElementById("pharga").innerText="Rp "+h
+document.getElementById("pimg").src=img
+document.getElementById("qty").innerText=qty
+
+document.getElementById("popup").style.display="flex"
+
+}
+
+function tambah(){
+qty++
+document.getElementById("qty").innerText=qty
+}
+
+function kurang(){
+if(qty>1){
+qty--
+document.getElementById("qty").innerText=qty
+}
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none"
+}
+
+function beli(){
+
+document.getElementById("popup").style.display="none"
+document.getElementById("menuBayar").style.display="block"
+
+window.scrollTo(0,document.body.scrollHeight)
+
+}
+
+function bukaCaraBayar(){
+
+document.getElementById("caraBayar").style.display="block"
+document.getElementById("menuBayar").style.display="none"
+
+}
+
+function selesaiBayar(){
+
+document.getElementById("caraBayar").style.display="none"
+document.getElementById("menuBayar").style.display="block"
+
+}
+
+function wa(){
+
+let pesan="Halo admin... saya mau ambil premium saya."
+
+window.location.href="https://wa.me/6288973654391?text="+encodeURIComponent(pesan)
+
+}
+
+function sudahBayar(){
+
+document.getElementById("rating").style.display="flex"
+
+}
+
+function rating(n){
+
+let s=document.querySelectorAll(".star")
+
+s.forEach((x,i)=>{
+x.style.color=i<n?"gold":"gray"
+})
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">
+DALEX.MARKET <span class="badge">✓</span>
+</div>
+</div>
+
+<div class="grid">
+
+<div class="product" onclick="openProduk('AM 1 Tahun Privat',5000,'https://cdn-icons-png.flaticon.com/512/888/888879.png')">
+<img src="am1tahunprivat.png">
+<p>AM 1 Tahun Privat</p>
+<p class="price">Rp 5.000</p>
+</div>
+
+<div class="product" onclick="openProduk('AM 1 Tahun Sharing',3500,'https://cdn-icons-png.flaticon.com/512/888/888879.png')">
+<img src="am1tahunsharing">
+<p>AM 1 Tahun Sharing</p>
+<p class="price">Rp 3.500</p>
+</div>
+
+<div class="product" onclick="openProduk('AM 1 Bulan Privat',2500,'https://cdn-icons-png.flaticon.com/512/888/888879.png')">
+<img src="am1bulanprivat.png">
+<p>AM 1 Bulan Privat</p>
+<p class="price">Rp 2.500</p>
+</div>
+
+<div class="product" onclick="openProduk('AM 1 Bulan Sharing',2000,'https://cdn-icons-png.flaticon.com/512/888/888879.png')">
+<img src="am1bulansharing.png">
+<p>AM 1 Bulan Sharing</p>
+<p class="price">Rp 2.000</p>
+</div>
+
+<div class="product" onclick="openProduk('Canva Pro Privat',10000,'https://cdn-icons-png.flaticon.com/512/5968/5968705.png')">
+<img src="canvapro1bulanprivat.png">
+<p>Canva Pro Privat</p>
+<p class="price">Rp 10.000</p>
+</div>
+
+<div class="product" onclick="openProduk('Canva Pro Join Tim',7000,'https://cdn-icons-png.flaticon.com/512/5968/5968705.png')">
+<img src="canvapro1bulansharing.png">
+<p>Canva Pro Join Tim</p>
+<p class="price">Rp 7.000</p>
+</div>
+
+</div>
+
+<div class="popup" id="popup">
+
+<div class="box">
+
+<img id="pimg" width="70">
+
+<h3 id="pnama"></h3>
+
+<p id="pharga"></p>
+
+<div class="qty">
+<button onclick="kurang()">-</button>
+<span id="qty">1</span>
+<button onclick="tambah()">+</button>
+</div>
+
+<button onclick="beli()">Beli Sekarang</button>
+
+<br>
+
+<button onclick="closePopup()">Tutup</button>
+
+</div>
+
+</div>
+
+<div class="section" id="menuBayar" style="display:none">
+
+<h3>Menu Pembayaran</h3>
+
+<button onclick="bukaCaraBayar()">Cara Bayar</button>
+
+<br>
+
+<button onclick="sudahBayar()">Saya Sudah Bayar</button>
+
+<br>
+
+<button onclick="wa()">Kirim Bukti ke WhatsApp</button>
+
+</div>
+
+<div class="section" id="caraBayar" style="display:none">
+
+<h3>Cara Bayar</h3>
+
+<p>
+1. buka dana kamu<br>
+2. klik menu kirim<br>
+3. lalu di menu kirim itu,ada menu kirim cepat,masukin nomor wa mimin<br>
+<b>088973654491</b><br>
+4. kalok udah bayar sesuai harga<br>
+5. screenshoot bukti pembayaran dan kirim ke nomor wa mimin<br>
+6. dan boom akun kamu otomatis akan dibuat premium oleh mimin ganteng 🗿
+</p>
+
+<button onclick="selesaiBayar()">Selesai</button>
+
+</div>
+
+<div class="section">
+
+<h3>Profil</h3>
+
+<p>
+Nama panggil: dalex<br>
+Jenis kelamin: pria<br>
+Umur: -<br>
+Nama asli: -
+</p>
+
+</div>
+
+<div class="section">
+
+<h3>Tentang Saya</h3>
+
+<p>
+Kenalin saya dani, pelajar yang memulai bisnis kecil dari berjualan am premium dan canva pro.
+Saya masih pemula tapi ingin terus berkembang.
+Saya punya cita-cita menjadi penyanyi.
+Hobi saya random.
+Saya berjanji kalau ada rezeki saya akan menjual lebih banyak apk premium.
+</p>
+
+</div>
+
+<div class="popup" id="rating">
+
+<div class="box">
+
+<h3>Rating Toko Kami</h3>
+
+<span class="star" onclick="rating(1)">★</span>
+<span class="star" onclick="rating(2)">★</span>
+<span class="star" onclick="rating(3)">★</span>
+<span class="star" onclick="rating(4)">★</span>
+<span class="star" onclick="rating(5)">★</span>
+
+<br><br>
+
+<button onclick="document.getElementById('rating').style.display='none'">Kirim</button>
+
+</div>
+
+</div>
+
+</body>
+</html>
